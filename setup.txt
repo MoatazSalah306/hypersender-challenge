@@ -1,0 +1,4 @@
+laravel new hypersender-challenge
+composer require filament/filament:"^3.0" -W
+php artisan filament:install --panels
+php artisan make:filament-user
