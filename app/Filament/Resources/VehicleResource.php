@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DriverResource\Pages;
-use App\Filament\Resources\DriverResource\RelationManagers;
-use App\Filament\Resources\DriverResource\RelationManagers\TripsRelationManager;
-use App\Models\Driver;
+use App\Filament\Resources\VehicleResource\Pages;
+use App\Filament\Resources\VehicleResource\RelationManagers;
+use App\Filament\Resources\VehicleResource\RelationManagers\TripsRelationManager;
+use App\Models\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,11 +14,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DriverResource extends Resource
+class VehicleResource extends Resource
 {
-    protected static ?string $model = Driver::class;
+    protected static ?string $model = Vehicle::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-truck';
     protected static ?string $navigationGroup = 'Management';
 
     public static function form(Form $form): Form
@@ -26,21 +26,21 @@ class DriverResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('company_id')
-                    ->relationship('company','name')
+                    ->relationship('company', 'name')
                     ->required()
                     ->label('Company')
                     ->placeholder('Choose a Company'),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255)
-                    ->label('Driver Name')
-                    ->placeholder('Enter the driver name'),
-                Forms\Components\TextInput::make('license_number')
+                Forms\Components\TextInput::make('plate_number')
                     ->required()
                     ->maxLength(10)
-                    ->unique(ignorable: fn ($record) => $record)
-                    ->label('License Number')
+                    ->unique(ignorable: fn($record) => $record)
+                    ->label('Plate Number')
                     ->placeholder('Enter a unique license number'),
+                Forms\Components\TextInput::make('model')
+                    ->required()
+                    ->maxLength(50)
+                    ->label('Model')
+                    ->placeholder('Enter the vehicle model'),
             ]);
     }
 
@@ -49,15 +49,15 @@ class DriverResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('company.name')
-                    ->label('Company')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->label('Company'),
+                Tables\Columns\TextColumn::make('plate_number')
                     ->searchable()
                     ->sortable()
-                    ->label("Driver Name"),
-                Tables\Columns\TextColumn::make('license_number')
+                    ->label('Plate #'),
+                Tables\Columns\TextColumn::make('model')
                     ->searchable()
-                    ->label('License #'),
+                    ->label('Model'),
                 Tables\Columns\TextColumn::make('trips_count')
                     ->counts('trips')
                     ->label('Trips')
@@ -84,23 +84,23 @@ class DriverResource extends Resource
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()
+                Tables\Actions\CreateAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            TripsRelationManager::class
+            TripsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDrivers::route('/'),
-            'create' => Pages\CreateDriver::route('/create'),
-            'edit' => Pages\EditDriver::route('/{record}/edit'),
+            'index' => Pages\ListVehicles::route('/'),
+            'create' => Pages\CreateVehicle::route('/create'),
+            'edit' => Pages\EditVehicle::route('/{record}/edit'),
         ];
     }
 }

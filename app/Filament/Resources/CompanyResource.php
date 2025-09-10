@@ -10,7 +10,6 @@ use App\Filament\Resources\CompanyResource\RelationManagers\VehiclesRelationMana
 use App\Models\Company;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -56,6 +55,10 @@ class CompanyResource extends Resource
                     ->counts('trips')
                     ->label('Trips')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime('Y-m-d H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('Y-m-d H:i')
                     ->sortable()

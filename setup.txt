@@ -13,3 +13,6 @@ php artisan make:filament-user
 
 2- php artisan make:filament-resource Driver --generate ( to generate the model attributes in the schema and table by default)
 2.1- php artisan make:filament-relation-manager DriverResource trips
+
+3- php artisan make:filament-resource Vehicle --generate
+3.1- php artisan make:filament-relation-manager VehicleResource trips

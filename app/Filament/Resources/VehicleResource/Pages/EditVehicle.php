@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Filament\Resources\VehicleResource\Pages;
+
+use App\Filament\Resources\VehicleResource;
+use Filament\Actions;
+use Filament\Notifications\Notification;
+use Filament\Resources\Pages\EditRecord;
+
+class EditVehicle extends EditRecord
+{
+    protected static string $resource = VehicleResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
+    }
+
+    
+    protected function getSavedNotification(): ?Notification
+    {
+        return Notification::make()
+            ->title('Vehicle updated successfully!')
+            ->color('success')
+            ->success();
+    }
+}

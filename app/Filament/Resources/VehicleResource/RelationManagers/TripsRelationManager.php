@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\DriverResource\RelationManagers;
+namespace App\Filament\Resources\VehicleResource\RelationManagers;
 
-use App\Enums\TripStatus;
-use App\Models\Trip;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Resources\RelationManagers\RelationManager;
+use App\Models\Trip;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Enums\TripStatus;
 use Filament\Tables\Table;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class TripsRelationManager extends RelationManager
 {
@@ -21,18 +21,19 @@ class TripsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Hidden::make('driver_id')
+                // Injecting the 'vehicle_id' and 'company_id'.
+                Forms\Components\Hidden::make('vehicle_id')
                     ->default(fn ($record) => $this->getOwnerRecord()->id)
                     ->required(),
                 Forms\Components\Hidden::make('company_id')
                     ->default(fn ($record) => $this->getOwnerRecord()->company_id)
-                    ->required(),    
+                    ->required(),
 
-                Forms\Components\Select::make('vehicle_id')
-                    ->relationship('vehicle', 'plate_number')
+                Forms\Components\Select::make('driver_id')
+                    ->relationship('driver', 'name')
                     ->required()
-                    ->label('Vehicle')
-                    ->placeholder('Choose a vehicle '),
+                    ->label('Driver')
+                    ->placeholder('Choose a driver'),
                 Forms\Components\DateTimePicker::make('start_time')
                     ->required()
                     ->label('Start Time'),
@@ -57,9 +58,9 @@ class TripsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('status')
             ->columns([
-                Tables\Columns\TextColumn::make('vehicle.plate_number')
+                Tables\Columns\TextColumn::make('driver.name')
                     ->searchable()
-                    ->label('Vehicle'),
+                    ->label('Driver'),
                 Tables\Columns\TextColumn::make('start_time')
                     ->dateTime('Y-m-d H:i')
                     ->sortable()
