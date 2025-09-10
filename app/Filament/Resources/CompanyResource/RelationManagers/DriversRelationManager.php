@@ -28,6 +28,7 @@ class DriversRelationManager extends RelationManager
                     ->required()
                     ->maxLength(10)
                     ->label('License Number')
+                    ->unique(ignorable: fn ($record) => $record)
                     ->placeholder('Enter license number'),
             ]);
     }
@@ -52,7 +53,7 @@ class DriversRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\OverlappingTripException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,29 +30,19 @@ class Trip extends Model
         return $this->belongsTo(Vehicle::class);
     }
 
-    protected static function boot()
+
+    public static function hasOverlap(array $data, ?int $ignoreId = null): bool
     {
-        parent::boot();
-
-        static::creating(function ($trip) {
-            if (!$trip->end_time) {
-                $trip->end_time = $trip->start_time->addHours(2);
-            }
-
-            // Overlap check
-            $overlaps = self::where('driver_id', $trip->driver_id)
-                ->where('vehicle_id', $trip->vehicle_id)
-                ->where('id', '!=', $trip->id ?? 0) // Exclude self for updates
-                ->where(function ($q) use ($trip) {
-                    $q->where('start_time', '<', $trip->end_time)
-                        ->where('end_time', '>', $trip->start_time);
-                })
-                ->exists();
-
-            if ($overlaps) {
-                throw new \Exception('Driver or vehicle is already booked for overlapping time.');
-            }
-        });
+        return self::where(function ($query) use ($data) {
+                $query->where('driver_id', $data['driver_id'])
+                      ->orWhere('vehicle_id', $data['vehicle_id']);
+            })
+            ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
+            ->where(function ($q) use ($data) {
+                $q->where('start_time', '<', $data['end_time'])
+                  ->where('end_time', '>', $data['start_time']);
+            })
+            ->exists();
     }
 
     public function scopeActiveNow($query)

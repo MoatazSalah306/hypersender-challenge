@@ -22,6 +22,7 @@ class VehiclesRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255)
                     ->label('Plate Number')
+                    ->unique(ignorable: fn ($record) => $record)
                     ->placeholder('Enter the plate number'),
 
                 Forms\Components\TextInput::make('model')
@@ -52,7 +53,7 @@ class VehiclesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

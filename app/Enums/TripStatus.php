@@ -15,4 +15,13 @@ enum TripStatus : string
     {
         return array_map(fn($case) => $case->value, self::cases());
     }
+
+    public static function options(): array
+    {
+        return collect(self::cases())
+            ->mapWithKeys(fn (self $case) => [
+                $case->value => ucfirst($case->name),
+            ])
+            ->toArray(); // to map it to array with keys like : "['scheduled' => 'Scheduled', ...]"
+    }
 }

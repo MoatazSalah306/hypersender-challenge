@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\CompanyResource\RelationManagers;
+namespace App\Filament\Resources\DriverResource\RelationManagers;
 
 use App\Enums\TripStatus;
 use App\Models\Trip;
@@ -21,33 +21,23 @@ class TripsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('driver_id')
-                    ->relationship('driver', 'name')
-                    ->required()
-                    ->label('Driver')
-                    ->placeholder('Choose a driver'),
-
                 Forms\Components\Select::make('vehicle_id')
                     ->relationship('vehicle', 'plate_number')
                     ->required()
                     ->label('Vehicle')
                     ->placeholder('Choose a vehicle '),
-
                 Forms\Components\DateTimePicker::make('start_time')
                     ->required()
                     ->label('Start Time'),
-
                 Forms\Components\DateTimePicker::make('end_time')
                     ->required()
                     ->after('start_time')
                     ->label('End Time'),
-
                 Forms\Components\Select::make('status')
                     ->options(TripStatus::options())
                     ->required()
                     ->label('Status')
                     ->placeholder('Choose a status'),
-
                 Forms\Components\Textarea::make('description')
                     ->maxLength(500)
                     ->label('Description')
@@ -60,9 +50,6 @@ class TripsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('status')
             ->columns([
-                Tables\Columns\TextColumn::make('driver.name')
-                    ->searchable()
-                    ->label('Driver'),
                 Tables\Columns\TextColumn::make('vehicle.plate_number')
                     ->searchable()
                     ->label('Vehicle'),

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Filament\Resources\CompanyResource\Pages;
+namespace App\Filament\Resources\DriverResource\Pages;
 
-use App\Filament\Resources\CompanyResource;
+use App\Filament\Resources\DriverResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateCompany extends CreateRecord
+class CreateDriver extends CreateRecord
 {
-    protected static string $resource = CompanyResource::class;
+    protected static string $resource = DriverResource::class;
 
     protected function getCreatedNotification(): ?Notification
     {
         return Notification::make()
-            ->title('Company created successfully!')
+            ->title('Driver created successfully!')
             ->color('success')
             ->success();
     }
