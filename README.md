@@ -9,7 +9,7 @@ It is built with Laravel, Filament, and Pest, focusing on clean business logic, 
 
 1. **Clone the repository**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/MoatazSalah306/hypersender-challenge.git
    cd hypersender-challenge
    ```
 
