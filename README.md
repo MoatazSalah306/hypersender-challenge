@@ -69,7 +69,7 @@ It is built with Laravel, Filament, and Pest, focusing on clean business logic, 
 - **Overlap Validation**: Implemented inside the `Trip` model via a helper method (`hasOverlap`) to ensure consistent business rules, regardless of whether trips are created through Filament or elsewhere. In Filament Relation Managers, we hook into the `before` lifecycle of actions to provide user-friendly notifications instead of raw exceptions.  
 - **Caching + Polling**: KPI counts are cached for performance (to avoid recalculating heavy queries). Polling every 30 seconds ensures the dashboard remains updated even if cached values are slightly stale — a balanced tradeoff between accuracy and efficiency.  
 - **Relation Managers**: Used at the company, driver, and vehicle levels to give admins a seamless way to manage related entities directly from a parent resource, improving usability.  
-- **Query Optimization**: Leveraged Eloquent relationships and count methods to avoid N+1 queries in tables and widgets.  
+- **Query Optimization**: Leveraged Eloquent relationships and `count` & `with` methods to avoid N+1 queries in tables and widgets.  
 - **SQLite**: Chosen as the default database for simplicity and portability in challenge evaluation.
 
 ---
