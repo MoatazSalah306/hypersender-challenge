@@ -16,3 +16,6 @@ php artisan make:filament-user
 
 3- php artisan make:filament-resource Vehicle --generate
 3.1- php artisan make:filament-relation-manager VehicleResource trips
+
+4- php artisan make:filament-resource Trip --generate
+

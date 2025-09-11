@@ -47,7 +47,8 @@ class Trip extends Model
 
     public function scopeActiveNow($query)
     {
-        return $query->where('start_time', '<=', now())
+        return $query->where('status', 'active')
+            ->where('start_time', '<=', now())
             ->where('end_time', '>=', now());
     }
 
