@@ -56,8 +56,11 @@ It is built with Laravel, Filament, and Pest, focusing on clean business logic, 
 - **UI Customization**  
   - Custom logo and app name.  
   - Updated admin panel colors.  
-  - Styled widgets.  
-- **Relation Managers** used in Filament resources for managing trips, drivers, and vehicles directly from the company page.
+  - Styled widgets with 30s polling for auto-refresh.  
+- **Relation Managers**
+  - At the company level → manage its drivers, vehicles, and trips directly.
+  - At the driver level → manage trips assigned to that driver.
+  - At the vehicle level → manage trips assigned to that vehicle.
 
 ---
 
@@ -94,5 +97,5 @@ Tests are designed to cover **core business logic** with >80% coverage.
 ## 📌 Notes
 
 - Project is not deployed yet; runs locally with `php artisan serve`.  
-- Widgets are cached for performance but can be manually refreshed.  
+- Widgets are cached for performance but also use 30s polling to keep data refreshed automatically.  
 
