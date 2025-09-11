@@ -25,7 +25,9 @@ class KPIs extends BaseWidget
     {
         return 'An overview of some analytics.';
     }
-    protected function getStats(): array
+
+    //  MS- Made public for testability
+    public function getStats(): array
     {
         return [
             // MS- Active Trips Widget

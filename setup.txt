@@ -24,4 +24,10 @@ php artisan make:filament-user
 7- php artisan make:filament-widget AvailableDriversKPI --stats-overview => blank => admin
 8- php artisan make:filament-widget AvailableVehiclesKPI --stats-overview => blank => admin
 9- php artisan make:filament-widget CompletedTripsKPI --stats-overview => blank => admin
-10- php artisan make:filament-page AvailabilityCheck
+
+10- php artisan pest:test TripTest
+11- php artisan pest:test KPIWidgetTest
+
+------ php artisan test --filter={filename} =>> command to run specific test file -------------
+
+
