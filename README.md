@@ -107,7 +107,7 @@ Tests are designed to cover **core business logic** with >80% coverage.
 
 ## 📦 Tech Stack
 
-- Laravel 11  
+- Laravel 12  
 - Filament v3 (admin panel)  
 - Pest (testing)  
 - SQLite (default database, easy setup)  
